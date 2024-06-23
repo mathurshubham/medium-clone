@@ -18,19 +18,29 @@ export const blogRouter = new Hono<{
 
 blogRouter.use("/*", async (c,next)=>{
     const authHeader = c.req.header("authorization") || "";
-    const user = await verify(authHeader, c.env.JWT_SECRET);
-    console.log(user);
+    
+    
+    try{
+        const user = await verify(authHeader, c.env.JWT_SECRET);
+        console.log(user);
 
-    if (user && typeof user.id == 'number') {
-        c.set("userId", user.id);
-        await next();
-    } else{
+        if (user && typeof user.id == 'number') {
+            c.set("userId", user.id);
+            await next();
+        } else{
+            c.status(403);
+            return c.json({
+                message: "You are not logged in"
+            })
+        }
+    }catch(e){
         c.status(403);
         return c.json({
-            message: "You are not logged in"
+            message: "You are not logged in",
+            error: e
         })
-    }
 
+    }
 
 
 })

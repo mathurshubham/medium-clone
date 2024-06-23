@@ -43,33 +43,33 @@ userRouter.post('/signup',async (c)=> {
   
   
 userRouter.post('/api/v1/user/signin', async (c)=> {
-const body = await c.req.json();
-//add zod
-const prisma = new PrismaClient({
-    datasourceUrl: c.env.DATABASE_URL,
-}).$extends(withAccelerate())
+    const body = await c.req.json();
+    //add zod
+    const prisma = new PrismaClient({
+        datasourceUrl: c.env.DATABASE_URL,
+    }).$extends(withAccelerate())
 
-try{
-    const user = await prisma.user.findFirst({
-    where:{
-        username: body.username,
-        password: body.password,
-    }
-    })
-    if(!user){
-        c.status(403);
-        return c.json({
-        message: "Invalid, username or password doesn't match."
+    try{
+        const user = await prisma.user.findFirst({
+        where:{
+            username: body.username,
+            password: body.password,
+        }
         })
-    }
-    const jwt = await sign({
-    id: user.id
-    }, c.env.JWT_SECRET);
+        if(!user){
+            c.status(403);
+            return c.json({
+            message: "Invalid, username or password doesn't match."
+            })
+        }
+        const jwt = await sign({
+        id: user.id
+        }, c.env.JWT_SECRET);
 
-    return c.text(jwt)
-}catch(e){
-    console.log(e)
-    c.status(411)
-    return c.text('Invalid');
-}
+        return c.text(jwt)
+    }catch(e){
+        console.log(e)
+        c.status(411)
+        return c.text('Invalid');
+    }
 })

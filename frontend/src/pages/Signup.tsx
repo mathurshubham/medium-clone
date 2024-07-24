@@ -6,7 +6,7 @@ const Signup = () => {
   return (
     <div className='grid grid-cols-2'>
       <div>
-        <Auth type="signin"></Auth>
+        <Auth type="signup"></Auth>
       </div>
       <div className='invisible md:visible'>
         <Quote/>

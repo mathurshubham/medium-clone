@@ -1,6 +1,7 @@
 import { SignupInput } from '@mathurshubham/medium-common';
 import { ChangeEvent, useState } from 'react'
 import { Link } from 'react-router-dom';
+import { BACKEND_URL } from '../config';
 
 // read about trpc library for type safety
 const Auth = ({type}: {type: "signup" | "signin"}) => {
@@ -9,6 +10,19 @@ const Auth = ({type}: {type: "signup" | "signin"}) => {
         username: "",
         password: ""
     });
+
+    async function sendRequest(){
+        try{
+            const response = await axis.post(`${BACKEND_URL}/api/v1/user/signup`)
+            const jwt = response.data;
+            localStorage.setItem("token", jwt);
+            navigate("/blogs");
+        } catch(e){
+            // alert request failed
+        }
+    }
+
+
   return (
     <div className='h-screen flex justify-center flex-col'>
         <div className='flex justify-center'>
@@ -17,7 +31,7 @@ const Auth = ({type}: {type: "signup" | "signin"}) => {
                     <div className='text-3xl font-extrabold'>
                         Create an account
                     </div>
-                    <div className='text-slate-500'>
+                    <div className='text-slate-500 text-center'>
                         {type === "signin" ? "Don't have an account?" : "Already have an account?"}
                         <Link className="pl-2 underline" to={type==='signin'? "/signup": "/signin"}>
                             {type === "signin" ? "Sign up": "Sign in"}
@@ -25,12 +39,12 @@ const Auth = ({type}: {type: "signup" | "signin"}) => {
                     </div>
                 </div>
                 <div className='pt-8'>
-                    <LabelledInput label="Name" placeholder="Shubham Mathur" onChange={(e)=>{
+                    {type === "signup" ? <LabelledInput label="Name" placeholder="Shubham Mathur" onChange={(e)=>{
                         setPostInputs(c => ({
                             ...c,
                             name: e.target.value
                         }))
-                    }} />
+                    }} /> : null }
                     <LabelledInput label="Username" placeholder="mathurshubham@gmail.com" onChange={(e)=>{
                         setPostInputs(c => ({
                             ...c,

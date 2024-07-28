@@ -23,6 +23,3 @@ app.route("/api/v1/blog", blogRouter);
 
 
 export default app
-
-
-//git commit -m "removed unused imports from backend/src/index.ts and added cors"

@@ -49,7 +49,7 @@ userRouter.post('/signup',async (c)=> {
   
   
   
-userRouter.post('/api/v1/user/signin', async (c)=> {
+userRouter.post('/signin', async (c)=> {
     const body = await c.req.json();
     //add zod
     const prisma = new PrismaClient({

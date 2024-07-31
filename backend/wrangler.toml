@@ -2,8 +2,8 @@ name = "medium-yarn"
 compatibility_date = "2023-12-01"
 
 [vars]
-DATABASE_URL="prisma://accelerate.prisma-data.net/?api_key=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhcGlfa2V5IjoiYWFlNGI1NGQtODUwMC00OTEyLTgwYmYtMzZjNjE5NmYwOTljIiwidGVuYW50X2lkIjoiMWJmNWYxMWVhOGNhMjk3ZjJkNDQ0YThiNDhhZjg1MzAxYTY5MWE1Y2E1NTRjMzUxYmQzM2IxMmNmZGJkZmU4MyIsImludGVybmFsX3NlY3JldCI6ImZjNzkzY2RjLWM5MTQtNDFmZi05ZjQxLTIxNDZlNmZiNmZmYSJ9.H7_Fmz2hcjyFCCjNXQRig5EsV2_Nq1xxUD_2-QeAuRo"
-JWT_SECRET = "Secret_KEY_JWT"
+DATABASE_URL=""
+JWT_SECRET = ""
 
 # [[kv_namespaces]]
 # binding = "MY_KV_NAMESPACE"
